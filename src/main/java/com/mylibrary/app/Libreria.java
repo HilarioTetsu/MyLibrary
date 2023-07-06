@@ -19,24 +19,21 @@ import java.util.logging.Logger;
 public class Libreria {
 
     public static void main(String[] args) {
-    
-        
-        IndexController controller;
+        Connection conn = null;
         try {
-            controller = new IndexController(MySqlConnector.getConnection());
-             controller.init();
-        } catch (SQLException ex) {
-            Logger.getLogger(Libreria.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+            IndexController controller;
 
-        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
+            conn = MySqlConnector.getConnection();
+
+            controller = new IndexController(conn);
+            controller.init();
+
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(indexForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -45,8 +42,11 @@ public class Libreria {
             java.util.logging.Logger.getLogger(indexForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(indexForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Libreria.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
-      
 
     }
 }
