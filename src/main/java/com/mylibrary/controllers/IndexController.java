@@ -8,6 +8,7 @@ import com.mylibrary.app.Libreria;
 import com.mylibrary.models.pojo.Autor;
 import com.mylibrary.views.autores.IFCrearAutor;
 import com.mylibrary.views.autores.IFEditarAutor;
+import com.mylibrary.views.autores.IFEliminarAutor;
 import com.mylibrary.views.indexForm;
 import com.mylibrary.views.libros.IFCrearLibro;
 import java.awt.Color;
@@ -39,6 +40,7 @@ public class IndexController implements ActionListener {
         this.index.nuevoLibroItem.addActionListener(this);
         this.index.nuevoAutorItem.addActionListener(this);
         this.index.updateAutorItem.addActionListener(this);
+        this.index.deleteAutorItem.addActionListener(this);
         this.conn = connection;
         dsk = new JDesktopPane();
         this.index.addWindowListener(new WindowAdapter() {
@@ -96,6 +98,14 @@ public class IndexController implements ActionListener {
              Autor autor = new Autor();
              AutorController autorContrll = new AutorController(formEditarAutor, autor, conn);
              index.add(formEditarAutor);
+        }
+        
+        if (e.getSource()==index.deleteAutorItem) {
+             System.out.println("boton deleteAutor");
+             IFEliminarAutor formEliminarAutor=new IFEliminarAutor();
+             
+             AutorController autorContrll = new AutorController(formEliminarAutor, conn);
+             index.add(formEliminarAutor);
         }
 
     }
